@@ -32,6 +32,7 @@ Composiciones de átomos que forman unidades funcionales simples, controles de f
 | **`ButtonGroup`** | Controles Segmentados | Grupo de botones cohesivos con borde compartido para modos y vistas | [`specs/molecules/ButtonGroup.spec.md`](specs/molecules/ButtonGroup.spec.md) |
 | **`FilterDropdown`** | Filtros & Desplegables | Menú desplegable desacoplado con icono contextual y checkmarks | [`specs/molecules/FilterDropdown.spec.md`](specs/molecules/FilterDropdown.spec.md) |
 | **`MultiSelectDropdown`**| Filtros & Desplegables | Selector múltiple contextual con buscador interno y chip compacto | [`specs/molecules/MultiSelectDropdown.spec.md`](specs/molecules/MultiSelectDropdown.spec.md) |
+| **`FilterPopover`** | Filtros & Desplegables | Menú popover multicriterio con categorías, estados, calendario y agrupación | [`specs/molecules/FilterPopover.spec.md`](specs/molecules/FilterPopover.spec.md) |
 | **`PeriodSelector`** | Filtros de Tiempo | Control segmentado de ventanas temporales (`24 h` a `1 año`) | [`specs/molecules/PeriodSelector.spec.md`](specs/molecules/PeriodSelector.spec.md) |
 | **`FilterPillGroup`** | Filtros de Categoría | Píldoras interactivas con iconos para filtrado multicriterio | [`specs/molecules/FilterPillGroup.spec.md`](specs/molecules/FilterPillGroup.spec.md) |
 | **`KpiGroup`** | Métricas & KPIs | Barra de indicadores superiores en grilla con tooltips emergentes | [`specs/molecules/KpiGroup.spec.md`](specs/molecules/KpiGroup.spec.md) |
@@ -68,6 +69,6 @@ Estructuras de alta complejidad que combinan múltiples moléculas, canvas vecto
 
 ## 🏗️ 4. Layouts Maestros
 
-| Layout | Categoría | Propósito Funcional | Especificación Técnica |
+| Layout | Categoríar| Propósito Funcional | Especificación Técnica |
 | :--- | :--- | :--- | :--- |
 | **`AppLayout`** | Layout Shell | Shell maestro de navegación vertical, cotizaciones y canvas de contenido fluido | [`specs/layouts/AppLayout.spec.md`](specs/layouts/AppLayout.spec.md) |

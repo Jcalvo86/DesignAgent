@@ -143,6 +143,12 @@ Shadow arrays use color-aware alpha values derived via runtime execution layers 
 - `--shadow-sm`: `0 1px 2px var(--shadow-ambient)`
 - `--shadow-md`: `0 4px 12px -2px var(--shadow-ambient)`
 - `--shadow-lg`: `0 16px 32px -4px var(--shadow-ambient)`
+### 3. Z-Index & Overlay Layers
+- `--z-base`: `0`
+- `--z-dropdown`: `30` — Single dropdown menus and selects.
+- `--z-backdrop`: `40` — Transparent click-away backdrop overlay.
+- `--z-popover`: `50` — Multi-criteria filter popovers, contextual flyouts, and floating panels.
+- `--z-toast`: `60` — Foreground system alerts and toast notifications.
 ---
 ## 📋 Comprehensive Execution Do's and Don'ts
 Consult [`Skills/writing-ui-components/SKILL.md`](Skills/writing-ui-components/SKILL.md) and [`Skills/writing-ui-components/references/anti-patterns.md`](Skills/writing-ui-components/references/anti-patterns.md) for full architectural patterns and forbidden anti-patterns.
