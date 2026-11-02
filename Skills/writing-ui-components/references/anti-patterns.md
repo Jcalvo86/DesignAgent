@@ -120,6 +120,8 @@ Un contenedor `<div>` con un evento de clic no recibe el foco del teclado, no re
 
 Los valores hexadecimales fijos son invisibles para los cambios automáticos de interfaz, como el modo oscuro, y quedan obsoletos si la paleta de colores del proyecto se actualiza. Usa estrictamente las variables y tokens globales del sistema de diseño definidos en [`DESIGN.md`](../../../DESIGN.md) (ej. `text-danger`, `--color-brand`) y adaptados mediante [`Skills/framework-token-adapter/SKILL.md`](../../framework-token-adapter/SKILL.md).
 
+> **Excepción de compatibilidad con estilos previos:** Si el framework no soporta OKLCH o la migración rompe componentes existentes que dependían de formatos hexadecimales, no forzar OKLCH: usar los tokens y variables basados en los colores hexadecimales aproximados definidos en [`DESIGN.md`](../../../DESIGN.md) a través de [`framework-token-adapter`](../../framework-token-adapter/SKILL.md) para preservar los estilos de dichos componentes.
+
 ### Valores de diseño arbitrarios o manuales
 
 ```tsx

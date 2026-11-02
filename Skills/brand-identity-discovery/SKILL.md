@@ -39,7 +39,7 @@ Si se detectan colores de marca en formato HEX, RGB o HSL, el agente debe conver
 - **C (Chroma / Saturación):** `0.0` (gris neutro) a `0.37` (máxima saturación disponible).
 - **H (Hue / Matiz):** Ángulo de color de `0` a `360`.
 
-### Regla de Descomposición de Tokens Primarios
+### Regla de Descomposición de Tokens Primarios y Mapeo HEX de Respaldo
 Los valores crudos deben almacenarse como vectores numéricos descompuestos `L C H` para permitir transparencia dinámica con sintaxis nativa:
 
 ```css
@@ -48,6 +48,9 @@ Los valores crudos deben almacenarse como vectores numéricos descompuestos `L C
 --color-brand-primary: oklch(var(--brand-raw));
 --color-brand-alpha-50: oklch(var(--brand-raw) / 0.5);
 ```
+
+> **Registro Obligatorio de Hexadecimal Aproximado:**
+> Al migrar o descubrir colores en HEX, el agente debe consignar obligatoriamente su valor hexadecimal equivalente en la columna `Approximate Hex` de la tabla de tokens en [`DESIGN.md`](../../DESIGN.md). Si los componentes existentes en el repositorio ya usan estilos en hexadecimal y el framework o motor de compilación presenta problemas para mantener OKLCH (o quiebra estilos previos al actualizar), el sistema debe instruir a [`framework-token-adapter`](../framework-token-adapter/SKILL.md) para emplear directamente estos colores aproximados en HEX para mantener la estabilidad visual.
 
 ---
 
@@ -76,6 +79,7 @@ Una vez determinada la identidad, el agente debe compilar y escribir el archivo 
 
 - [ ] Se revisaron todas las configuraciones de estilos existentes antes de proponer nuevos colores.
 - [ ] Todos los colores se derivaron al formato `oklch()`.
+- [ ] Se registraron los valores correspondientes en `Approximate Hex` como respaldo para compatibilidad de framework y componentes previos.
 - [ ] Los tokens primarios exponen vectores crudos `L C H`.
 - [ ] Se generó o actualizó el archivo [`DESIGN.md`](../../DESIGN.md) en la raíz del proyecto.
-- [ ] Se ejecutó la compilación con [`Skills/framework-token-adapter/SKILL.md`](../framework-token-adapter/SKILL.md).
+- [ ] Se ejecutó la compilación con [`Skills/framework-token-adapter/SKILL.md`](../framework-token-adapter/SKILL.md) evaluando si se requiere modo OKLCH o fallback HEX.

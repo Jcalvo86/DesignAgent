@@ -11,9 +11,9 @@ Antes de ejecutar cualquier cambio en el código, el agente debe activar y respe
 | Documento / Skill | Ruta Relativa | Disparador (Trigger) / Propósito |
 | :--- | :--- | :--- |
 | **`UXAGENT.md`** | `UXAGENT.md` | Orquestador principal, cadencia de verificación, reglas de arquitectura y flujo de ejecución. |
-| **`DESIGN.md`** | [`DESIGN.md`](DESIGN.md) | Única fuente de verdad de tokens OKLCH, escala tipográfica `clamp()`, grid modular de 4px, hitboxes de 44x44px y motion. |
-| **`brand-identity-discovery`** | [`Skills/brand-identity-discovery/SKILL.md`](Skills/brand-identity-discovery/SKILL.md) | Disparar al inicializar un repositorio sin [`DESIGN.md`](DESIGN.md) en su raíz, al integrar una nueva marca o migrar paletas a OKLCH. |
-| **`framework-token-adapter`** | [`Skills/framework-token-adapter/SKILL.md`](Skills/framework-token-adapter/SKILL.md) | Disparar inmediatamente tras crear o modificar [`DESIGN.md`](DESIGN.md) para compilar tokens en Tailwind v3/v4 o CSS Modules. |
+| **`DESIGN.md`** | [`DESIGN.md`](DESIGN.md) | Única fuente de verdad de tokens OKLCH y fallback HEX aproximado, escala tipográfica `clamp()`, grid modular de 4px, hitboxes de 44x44px y motion. |
+| **`brand-identity-discovery`** | [`Skills/brand-identity-discovery/SKILL.md`](Skills/brand-identity-discovery/SKILL.md) | Disparar al inicializar un repositorio sin [`DESIGN.md`](DESIGN.md) en su raíz, al integrar una nueva marca o migrar paletas a OKLCH preservando mapeos HEX aproximados. |
+| **`framework-token-adapter`** | [`Skills/framework-token-adapter/SKILL.md`](Skills/framework-token-adapter/SKILL.md) | Disparar inmediatamente tras crear o modificar [`DESIGN.md`](DESIGN.md) para compilar tokens en Tailwind v3/v4 o CSS Modules, aplicando fallback a HEX aproximado si el framework no soporta OKLCH o se rompen componentes previos. |
 | **`design-system-auditor`** | [`Skills/design-system-auditor/SKILL.md`](Skills/design-system-auditor/SKILL.md) | Disparar antes de crear cualquier componente UI, diálogo, tabla o vista (Regla 1). Audita el catálogo oficial y previene código HTML duplicado. |
 | **`writing-ui-components`** | [`Skills/writing-ui-components/SKILL.md`](Skills/writing-ui-components/SKILL.md) | Disparar al crear, estructurar, dividir o mover componentes UI (Regla 5). Aplica la escalera de abstracción y estados obligatorios. |
 | **`anti-patterns.md`** | [`Skills/writing-ui-components/references/anti-patterns.md`](Skills/writing-ui-components/references/anti-patterns.md) | Catálogo de malas prácticas y anti-patrones que deben corregirse a la vista en componentes, estilos y asincronía. |
@@ -37,6 +37,7 @@ Antes de modificar cualquier archivo de la aplicación, el agente DEBE seguir es
 
 3. **Fase 2 — Adaptación de Tokens al Framework (`framework-token-adapter`):**
    - Activar [`Skills/framework-token-adapter/SKILL.md`](Skills/framework-token-adapter/SKILL.md) para validar o inyectar las variables y tokens de [`DESIGN.md`](DESIGN.md) en la sintaxis nativa del motor de estilos detectado en la Fase 0 (Tailwind v3/v4 o CSS Modules).
+   - **Factor de Respaldo HEX ante Incompatibilidad:** Si la versión del framework no es capaz de procesar o mantener OKLCH (o si la actualización a OKLCH quiebra estilos previos de componentes que utilizaban formato hexadecimal), el agente **no debe forzar OKLCH**. En tales casos, se inyectan únicamente los colores aproximados en hexadecimal documentados en [`DESIGN.md`](DESIGN.md) para mantener la integridad de los componentes ya creados.
 
 4. **Fase 3 — Auditoría de Precedentes y Componentes (`design-system-auditor`):**
    - Antes de escribir o refactorizar cualquier pantalla, diálogo o formulario, activar [`Skills/design-system-auditor/SKILL.md`](Skills/design-system-auditor/SKILL.md) para inventariar componentes existentes y forzar la reutilización (Regla 1).

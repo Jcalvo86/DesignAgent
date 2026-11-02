@@ -3,10 +3,10 @@ This document is the absolute single source of truth for the project's design sy
 AI Agents and developers must parse and strictly enforce these native CSS rules as defined in [`UXAGENT.md`](UXAGENT.md). Do not hallucinate raw pixel mappings, arbitrary color strings, un-scaled motion curves, or manual media-query sizing loops.
 
 ---
-## 🎨 Color Tokens (OKLCH Space)
+## 🎨 Color Tokens (OKLCH Space & Fallback HEX)
 Colors are defined using the perceptually uniform `oklch(Lightness Chroma Hue)` functional notation. 
 - Primitive layer tokens expose raw, comma-separated numeric vectors (`L C H`). This allows modern CSS injection engines to dynamically apply alpha transparency natively: `oklch(var(--primitive-token) / alpha)`. Initial discovery and extraction are governed by [`Skills/brand-identity-discovery/SKILL.md`](Skills/brand-identity-discovery/SKILL.md), while compilation to target style engines (Tailwind v3/v4, CSS Modules) is executed by [`Skills/framework-token-adapter/SKILL.md`](Skills/framework-token-adapter/SKILL.md).
-- **Enforcement Rule:** Never hardcode raw hex values directly into component styling layers. Always bind elements to the semantic token map.
+- **Enforcement Rule & Fallback de Compatibilidad HEX:** Si el framework, motor de compilación o herramientas del proyecto presentan problemas para procesar o mantener el espacio `oklch()`, o si la actualización a OKLCH rompe estilos previos de componentes que ya utilizaban formato hexadecimal, **se deben utilizar únicamente los colores aproximados en hexadecimal** (`Approximate Hex` de la tabla de tokens primitivos). Esto mantiene la continuidad visual y evita roturas de estilos en los componentes que ya dependen de HEX.
 ### 1. Primitive Tokens (Base Coordinates)
 *Do not assign these directly to layout elements. Use the intent-based Semantic Map variables.*
 | Token Name | OKLCH Coordinate String | Approximate Hex | Visual Target |
@@ -20,6 +20,7 @@ Colors are defined using the perceptually uniform `oklch(Lightness Chroma Hue)` 
 | `--rose-600-raw`   | `0.58 0.21 16`  | `#E11D48` | System destructive actions / errors |
 ### 2. Semantic Mapping (Light/Dark Engine Theme Variables)
 ```css
+/* Modo Estándar: OKLCH Nativo */
 :root {
   /* Surface Layers */
   --color-bg-canvas: oklch(var(--slate-50-raw));
@@ -45,6 +46,32 @@ Colors are defined using the perceptually uniform `oklch(Lightness Chroma Hue)` 
     --color-text-muted: oklch(from oklch(var(--slate-50-raw)) calc(l - 0.15) c h);
     --color-brand-primary: oklch(from oklch(var(--indigo-600-raw)) calc(l + 0.05) c h);
     --color-brand-hover: oklch(from var(--color-brand-primary) calc(l + 0.05) c h);
+  }
+}
+
+/* Modo Fallback / Compatibilidad HEX (cuando el framework no soporta OKLCH o se rompen componentes previos en HEX): */
+:root[data-color-engine="hex"],
+:root.fallback-hex {
+  --color-bg-canvas: #F8FAFC;
+  --color-bg-surface: #FFFFFF;
+  --color-border-subtle: #F1F5F9;
+  --color-text-primary: #0F172A;
+  --color-text-muted: #1E293B;
+  --color-brand-primary: #4F46E5;
+  --color-brand-hover: #4338CA;
+  --color-status-success: #059669;
+  --color-status-error: #E11D48;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-color-engine="hex"],
+  :root.fallback-hex {
+    --color-bg-canvas: #0F172A;
+    --color-bg-surface: #1E293B;
+    --color-border-subtle: #334155;
+    --color-text-primary: #F8FAFC;
+    --color-text-muted: #94A3B8;
+    --color-brand-primary: #6366F1;
+    --color-brand-hover: #818CF8;
   }
 }
 ```
@@ -126,8 +153,10 @@ Consult [`Skills/writing-ui-components/SKILL.md`](Skills/writing-ui-components/S
 * **SÍ:** Enforce a minimum user control hitbox footprint of 44x44px on interactive indicators.
 * **SÍ:** Construct defensive fallbacks addressing structural errors, empty states, and ongoing asynchronous load animations.
 * **SÍ:** Map all colors natively to runtime intent tokens via standard semantic variable tracks.
+* **SÍ:** Usar los colores aproximados en hexadecimal de la tabla de tokens primitivos como fallback cuando el framework no soporte OKLCH o se rompan componentes previos con estilos en HEX.
 ### NO (Reject)
-* **NO:** Hardcode explicit hex mapping values inside contextual layout selectors.
+* **NO:** Hardcode explicit hex mapping values inside contextual layout selectors (usar siempre los tokens o variables del sistema).
+* **NO:** Forzar OKLCH cuando el framework presente incompatibilidades y rompa componentes que ya usaban hexadecimal.
 * **NO:** Guess or loosely estimate alignment spatial values ("a ojo").
 * **NO:** Use font sizes or structural margins outside the established scale bounds.
 * **NO:** Code an asset strictly covering its ideal layout state while leaving loading/error templates unaddressed.

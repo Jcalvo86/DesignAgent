@@ -65,7 +65,7 @@ Para evitar el acoplamiento descontrolado y asegurar interfaces modulares y alta
 
 1. **Átomos:**
    - Primitivos UI indivisibles (botones, inputs, badges, selectores simples, etiquetas, isotipos).
-   - Consumen exclusivamente tokens de diseño primitivos y semánticos fijados en [`DESIGN.md`](../../DESIGN.md) (colores OKLCH, tipografía fluida `clamp()`, espaciados múltiplos de 4px, radios y sombras).
+   - Consumen exclusivamente tokens de diseño primitivos y semánticos fijados en [`DESIGN.md`](../../DESIGN.md) (colores OKLCH o fallback HEX aproximado si el framework lo requiere, tipografía fluida `clamp()`, espaciados múltiplos de 4px, radios y sombras).
    - **Regla de aislamiento:** No dependen de ningún otro componente de UI.
 2. **Moléculas:**
    - Agrupaciones simples de 2 o más átomos con un propósito funcional unitario (píldoras de filtro, barra de búsqueda con botón de limpieza, grupos de KPIs, tarjetas simples de estado).
@@ -108,7 +108,7 @@ Todo componente formal del sistema de diseño debe contar con su correspondiente
 [Breve descripción del problema de UX que resuelve el componente]
 
 ## 2. Anatomía Visual & Tokens de Diseño
-- Tokens de Color: [Variables OKLCH de DESIGN.md]
+- Tokens de Color: [Variables OKLCH o fallback HEX aproximado de DESIGN.md]
 - Tipografía: [Escalas clamp() de DESIGN.md]
 - Espaciado & Geometría: [Escala 4px, radios y sombras]
 
