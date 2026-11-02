@@ -12,9 +12,10 @@ Antes de ejecutar cualquier cambio en el código, el agente debe activar y respe
 | :--- | :--- | :--- |
 | **`UXAGENT.md`** | `UXAGENT.md` | Orquestador principal, cadencia de verificación, reglas de arquitectura y flujo de ejecución. |
 | **`DESIGN.md`** | [`DESIGN.md`](DESIGN.md) | Única fuente de verdad de tokens OKLCH y fallback HEX aproximado, escala tipográfica `clamp()`, grid modular de 4px, hitboxes de 44x44px y motion. |
+| **`COMPONENTS.md`** | [`COMPONENTS.md`](COMPONENTS.md) | Catálogo maestro de especificaciones canónicas (`*.spec.md`) organizadas en Diseño Atómico (Átomos, Moléculas, Organismos, Layouts) para instanciar UI sólida en cualquier proyecto. |
 | **`brand-identity-discovery`** | [`Skills/brand-identity-discovery/SKILL.md`](Skills/brand-identity-discovery/SKILL.md) | Disparar al inicializar un repositorio sin [`DESIGN.md`](DESIGN.md) en su raíz, al integrar una nueva marca o migrar paletas a OKLCH preservando mapeos HEX aproximados. |
 | **`framework-token-adapter`** | [`Skills/framework-token-adapter/SKILL.md`](Skills/framework-token-adapter/SKILL.md) | Disparar inmediatamente tras crear o modificar [`DESIGN.md`](DESIGN.md) para compilar tokens en Tailwind v3/v4 o CSS Modules, aplicando fallback a HEX aproximado si el framework no soporta OKLCH o se rompen componentes previos. |
-| **`design-system-auditor`** | [`Skills/design-system-auditor/SKILL.md`](Skills/design-system-auditor/SKILL.md) | Disparar antes de crear cualquier componente UI, diálogo, tabla o vista (Regla 1). Audita el catálogo oficial y previene código HTML duplicado. |
+| **`design-system-auditor`** | [`Skills/design-system-auditor/SKILL.md`](Skills/design-system-auditor/SKILL.md) | Disparar antes de crear cualquier componente UI, diálogo, tabla o vista (Regla 1). Audita el catálogo local y previene código HTML duplicado. |
 | **`writing-ui-components`** | [`Skills/writing-ui-components/SKILL.md`](Skills/writing-ui-components/SKILL.md) | Disparar al crear, estructurar, dividir o mover componentes UI (Regla 5). Aplica la escalera de abstracción y estados obligatorios. |
 | **`anti-patterns.md`** | [`Skills/writing-ui-components/references/anti-patterns.md`](Skills/writing-ui-components/references/anti-patterns.md) | Catálogo de malas prácticas y anti-patrones que deben corregirse a la vista en componentes, estilos y asincronía. |
 | **`accessibility-contrast-auditor`** | [`Skills/accessibility-contrast-auditor/SKILL.md`](Skills/accessibility-contrast-auditor/SKILL.md) | Disparar al definir combinaciones de color, estados hover/focus, áreas táctiles mínimas (44x44px) y media queries de accesibilidad (Regla 6). |
@@ -41,9 +42,10 @@ Antes de modificar cualquier archivo de la aplicación, el agente DEBE seguir es
 
 4. **Fase 3 — Auditoría de Precedentes y Componentes (`design-system-auditor`):**
    - Antes de escribir o refactorizar cualquier pantalla, diálogo o formulario, activar [`Skills/design-system-auditor/SKILL.md`](Skills/design-system-auditor/SKILL.md) para inventariar componentes existentes y forzar la reutilización (Regla 1).
+   - Si el componente requerido no existe en el proyecto destino, consultar el catálogo canónico [`COMPONENTS.md`](COMPONENTS.md) y su correspondiente especificación (`specs/`) para instanciarlo con el contrato y diseño oficial.
 
 5. **Fase 4 — Construcción, Accesibilidad y Validación (`writing-ui-components` & `anti-patterns.md`):**
-   - Estructurar componentes bajo la metodología de **Diseño Atómico** (Átomos, Moléculas, Organismos, Layouts) respetando la composición unidireccional y consultando o generando su especificación agnóstica (`*.spec.md`) antes de codificar.
+   - Estructurar componentes bajo la metodología de **Diseño Atómico** (Átomos, Moléculas, Organismos, Layouts) respetando la composición unidireccional y consultando su especificación canónica en [`COMPONENTS.md`](COMPONENTS.md) o generando su especificación agnóstica (`*.spec.md`) antes de codificar.
    - Construir interfaces aplicando la escalera de abstracción y los tres estados obligatorios según [`Skills/writing-ui-components/SKILL.md`](Skills/writing-ui-components/SKILL.md).
    - Garantizar contraste WCAG y áreas táctiles mínimas de 44x44px según [`Skills/accessibility-contrast-auditor/SKILL.md`](Skills/accessibility-contrast-auditor/SKILL.md).
    - Verificar el marcado final contra el catálogo de [`Skills/writing-ui-components/references/anti-patterns.md`](Skills/writing-ui-components/references/anti-patterns.md).

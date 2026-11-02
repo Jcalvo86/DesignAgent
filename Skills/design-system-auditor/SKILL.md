@@ -52,7 +52,7 @@ Antes de escribir marcado nuevo, el agente debe auditar las carpetas de UI princ
                                        Compartido]    local]
 ```
 
-> **Guía de Abstracción:** Si se decide crear un componente compartido, consulta previamente la escalera de abstracción en [`Skills/writing-ui-components/SKILL.md`](../writing-ui-components/SKILL.md) y evita los anti-patrones de diseño documentados en [`anti-patterns.md`](../writing-ui-components/references/anti-patterns.md).
+> **Guía de Abstracción y Catálogo Canónico:** Si se decide crear un componente compartido, consulta previamente el catálogo maestro [`COMPONENTS.md`](../../COMPONENTS.md) y sus especificaciones en `specs/` para verificar si ya existe un plano técnico canónico (ej. `Button`, `UIStateCard`, `DataTable`). Aplica la escalera de abstracción en [`Skills/writing-ui-components/SKILL.md`](../writing-ui-components/SKILL.md) y evita los anti-patrones documentados en [`anti-patterns.md`](../writing-ui-components/references/anti-patterns.md).
 
 ---
 
