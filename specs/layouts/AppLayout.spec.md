@@ -11,7 +11,8 @@
 
 `AppLayout` es el shell maestro de navegación y andamiaje estructural para aplicaciones empresariales. Integra barra lateral de navegación vertical (`AppSidebar`), cabecera superior con títulos dinámicos y controles, y área de contenido principal (`main`) con padding responsivo y soporte para container queries.
 
-### Estándar Canónico de 3 Niveles en el Área de Contenido:
+> [!TIP]
+> **Variación Ergonómica Control → Resumen:** En vistas analíticas financieras o de control de gestión donde los indicadores KPI sintetizan directamente el set de datos parametrizado por los filtros del toolbar (ej. `/Gestion`), el Toolbar Operativo (Fila 3) puede ubicarse **por encima** de las tarjetas KPI (Fila 2) para preservar un flujo mental natural de *Parámetros de Control → Métricas de Resumen → Detalle Tabular*.
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
