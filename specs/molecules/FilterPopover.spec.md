@@ -7,14 +7,57 @@
 
 ---
 
-## 1. Propósito y Casos de Uso
+## 1. Propósito y Estándar de Distribución Canónica (Regla de 2 Columnas)
+
+> **ESTÁNDAR CANÓNICO DE DISEÑO:** Todo menú desplegable multicriterio en la suite debe respetar la distribución arquitectónica en **dos columnas especializadas**:
+> 1. **Columna Izquierda (Categorías de Negocio):** Secciones orientadas a entidades y dimensiones propias del negocio (Clientes, Productos, Líneas de Negocio). Dotadas de buscadores dinámicos en tiempo real, selección múltiple y botones de limpieza/marcado rápido.
+> 2. **Columna Derecha (Parámetros, Estados y Calendario):** Parámetros operacionales, estados de flujo y dimensión temporal completa (presets temporales + selector interactivo por calendario con inputs de fecha *Desde* / *Hasta*).
 
 `FilterPopover` es un componente desplegable flotante multicriterio diseñado para unificar y consolidar múltiples dimensiones de filtrado operacionales en una sola interacción compacta:
-- **Categorías o Líneas de Negocio:** Selección múltiple de entidades con iconos y colores temáticos, más acciones rápidas (*Marcar todas* / *Desmarcar todas*).
-- **Estado Operacional:** Selección simple o por tarjetas de estado de flujo.
-- **Ventana Temporal y Calendario:** Conmutación entre períodos predefinidos (*Mes*, *Trimestre*, *Semestre*, *Año*) y modo personalizado con inputs de fecha (*Desde* / *Hasta*).
-- **Dimensión de Agrupación:** Conmutador segmentado para organizar la vista (*Cliente*, *Proyecto*, *Servicio*).
-- **Indicador Dinámico:** Badge numérico en el botón disparador que cuantifica los filtros activos y botón de restablecimiento rápido.
+- **Indicador Dinámico y Feedback Exterior:** Badge numérico en el botón disparador que cuantifica los filtros activos, píldoras/chips exteriores removibles individuales y botón de restablecimiento rápido.
+
+### 1.1 Jerarquía y Orden Sugerido por Columna
+
+> [!NOTE]
+> **Orden Propuesto (No Obligatorio ni Restrictivo):** El siguiente orden constituye una jerarquía de usabilidad recomendada basada en la ley de proximidad y granularidad de datos. No todos los proyectos implementarán todas las dimensiones; en interfaces con menos criterios, los elementos presentes deben seguir este orden relativo.
+
+```
+┌───────────────────────────────────────────┬───────────────────────────────────────────┐
+│     COLUMNA IZQUIERDA (Negocio)           │     COLUMNA DERECHA (Operación & Fechas)  │
+├───────────────────────────────────────────┼───────────────────────────────────────────┤
+│ 1. Entidad Principal (Clientes / Cuentas) │ 1. Ventana Temporal y Fechas (Calendario) │
+│ 2. Sub-Entidad (Productos / Proyectos)    │ 2. Tipo de Elemento / Clasificación       │
+│ 3. Líneas de Negocio / Unidades           │ 3. Prioridad / Severidad                  │
+│ 4. Dimensión de Agrupación (Agrupar por)  │ 4. Estados de Flujo / Sub-Estados         │
+└───────────────────────────────────────────┴───────────────────────────────────────────┘
+```
+
+#### Columna Izquierda (De Mayor a Menor Jerarquía de Dominio)
+1. **1. Entidad Principal (Clientes / Cuentas / Empresas):**
+   - *Razón de orden:* Es la dimensión de mayor nivel jerárquico. La mayoría de los datos secundarios dependen del cliente o cuenta seleccionada.
+   - *Control UX:* Buscador dinámico en tiempo real (`Search` + botón `✕` para limpiar), listado con scroll y contador badge.
+2. **2. Sub-Entidades (Productos / Proyectos / Servicios):**
+   - *Razón de orden:* Especialización o acotamiento del alcance del cliente seleccionado.
+   - *Control UX:* Buscador dinámico si hay alta densidad (> 5 opciones) o listado con checkmarks.
+3. **3. Líneas de Negocio / Unidades Estratégicas:**
+   - *Razón de orden:* Segmentación transversal que agrupa productos o servicios bajo áreas de la empresa.
+   - *Control UX:* Botones compactos con iconografía temática (`BusinessLineIcon`) y acciones rápidas (*Marcar todas* / *Desmarcar todas*).
+4. **4. Dimensión de Agrupación o Perspectiva (Opcional):**
+   - *Razón de orden:* No filtra datos directamente, sino que reorganiza la estructura visual del reporte o tabla (ej. conmutador segmentado: *Cliente*, *Proyecto*, *Servicio*). Se sitúa al pie de la columna izquierda para separar filtrado de presentación.
+
+#### Columna Derecha (De Contexto Temporal a Estados Operativos)
+1. **1. Ventana Temporal y Calendario (Período y Fechas):**
+   - *Razón de orden:* El marco temporal es el parámetro de contexto más crítico en cualquier plataforma analítica. Define la ventana cronológica antes de evaluar estados y tipos.
+   - *Control UX:* Presets rápidos (`24 h`, `7 días`, `30 días`, `Mes`, `Año`) seguidos del botón interactivo **`Calendario`** (que abre/colapsa las entradas *Desde* / *Hasta*), más selector de año si aplica.
+2. **2. Tipo de Elemento o Clasificación Operacional:**
+   - *Razón de orden:* Define la naturaleza técnica o comercial del ítem (ej. `Evolutivo` vs. `Correctivo`, `Capex` vs. `Opex`).
+   - *Control UX:* Conmutador segmentado o botones de selección rápida.
+3. **3. Nivel de Prioridad o Severidad:**
+   - *Razón de orden:* Nivel de urgencia o impacto operativo (`Urgente`, `Alta`, `Normal`, `Baja`).
+   - *Control UX:* Botones con indicadores cromáticos accesibles.
+4. **4. Estados de Flujo / Sub-Estados / Facturación:**
+   - *Razón de orden:* Fase actual en el ciclo de vida del proceso (`Abierto`, `En espera`, `Facturado`, `Resuelto`).
+   - *Control UX:* Grid de botones de estado o selección por tarjetas.
 
 ---
 
@@ -76,23 +119,33 @@ export interface FilterPopoverProps {
 
 ---
 
-## 3. Tokens de Diseño y Guía de Estilos
+## 3. Modelo de Resolución de Tokens (DESIGN.md del Proyecto vs. Fallback)
 
-Mapeo directo a los tokens de [`DESIGN.md`](../../DESIGN.md):
-- **Botón Disparador:**
-  - Altura mínima `44px` (`min-h-[44px]`).
-  - Borde `var(--color-border-subtle)` o `var(--color-border-strong)`, fondo `var(--color-bg-surface)` (`#FFFFFF`), texto `var(--color-text-primary)`.
-  - Estado activo (`activeCount > 0` o abierto): fondo `var(--color-brand-tint)`, texto `var(--color-brand-primary)` y anillo sutil `ring-1 ring-[var(--color-brand-primary)]/20`.
+> **PRINCIPIO ARQUITECTÓNICO DE RESOLUCIÓN DE TOKENS:**  
+> 1. **Fuente Primaria Obligatoria:** Las propiedades visuales deben consumirse **directamente desde el `DESIGN.md` del proyecto anfitrión** mediante las variables semánticas CSS correspondientes (`var(--color-...)`, `var(--radius-...)`, etc.). Ningún componente debe asumir colores hexadecimales estáticos o clases no tokenizadas.  
+> 2. **Contrato Fallback (Base de Respaldo):** Si el proyecto donde se implementa el componente **NO posee un `DESIGN.md`**, se debe adoptar el contrato base neutral y accesible que provee esta especificación como fallback de contingencia.
+
+### Mapeo Semántico al `DESIGN.md` del Proyecto
+- **Botón Disparador Exterior:**
+  - Altura mínima accesible: `44px` (`min-h-[44px]`).
+  - Fondo: `var(--color-bg-surface)` (o fallback de superficie limpia).
+  - Borde: `var(--color-border-subtle)` o `var(--color-border-strong)`.
+  - Texto: `var(--color-text-primary)` o `var(--color-text-secondary)`.
+  - Estado Activo / Abierto: Fondo `var(--color-brand-tint)`, texto y borde `var(--color-brand-primary)` con anillo de foco `ring-1 ring-[var(--color-brand-primary)]/20`.
 - **Badge Contador:**
-  - Fondo `var(--color-brand-primary)`, texto blanco, tipografía monoespaciada `12px` (`text-xs font-mono font-bold`), tamaño compacto `min-w-[20px] h-5 px-1.5 rounded-full`.
+  - Fondo `var(--color-brand-primary)`, texto en contraste alto (`#FFFFFF` o token de texto inverso), tipografía monoespaciada `text-xs font-mono font-bold`, dimensión compacta `min-w-[20px] h-5 px-1.5 rounded-full`.
 - **Capa Backdrop:**
-  - Posicionamiento `fixed inset-0 z-40` para captura de clics exteriores.
-- **Panel Desplegable (Popover):**
-  - Posicionamiento `absolute left-0 top-full mt-2 z-50`.
-  - Ancho fluido `w-[340px] sm:w-[420px]`.
-  - Fondo `var(--color-bg-surface)`, borde `var(--color-border-subtle)`, radio `var(--radius-lg)` (`rounded-token-lg`), sombra ambiental profunda `var(--shadow-lg)` (`shadow-token-lg`).
-- **Piso Tipográfico:** Estrictamente $\ge 12$px (`text-xs`) en etiquetas, badges, placeholders y botones. Prohibido el uso de clases arbitrarias `text-[11px]`.
-- **Botón Primario de Cierre:** Fondo `var(--color-brand-primary)`, hover `var(--color-brand-hover)`, texto blanco, radio `var(--radius-md)`.
+  - Capa de cierre exterior `fixed inset-0 z-40 bg-black/10` para capturar clics fuera del popover.
+- **Panel Desplegable (Popover Flotante de 2 Columnas):**
+  - Posicionamiento: `absolute left-0 top-full mt-2 z-50`.
+  - Ancho fluido y responsivo en 2 columnas: `w-[340px] sm:w-[680px] lg:w-[760px]`.
+  - Fondo: `var(--color-bg-surface)`, borde `var(--color-border-subtle)`, radio `var(--radius-lg)` (`rounded-token-lg`), sombra `var(--shadow-lg)` (`shadow-token-lg`).
+  - Estructura interior: Grid de 2 columnas `grid grid-cols-1 sm:grid-cols-2 gap-5 divide-y sm:divide-y-0 sm:divide-x divide-border`.
+- **Piso Tipográfico y Accesibilidad:**
+  - Piso tipográfico innegociable $\ge 12$px (`text-xs`). Prohibido el uso de tamaños arbitrarios no accesibles (como `text-[10px]` o `text-[11px]`).
+  - Áreas táctiles de interacción mínima: $\ge 40$px en botones secundarios/inputs y $\ge 44$px en disparadores primarios.
+- **Botón Primario de Cierre / Listo:**
+  - Fondo `var(--color-brand-primary)`, hover `var(--color-brand-hover)`, texto en contraste alto, radio `var(--radius-md)`.
 
 ---
 
