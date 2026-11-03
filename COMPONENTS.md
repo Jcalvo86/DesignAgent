@@ -63,6 +63,7 @@ Estructuras de alta complejidad que combinan múltiples moléculas, canvas vecto
 | **`PeriodKpisGroup`** | Cuadrículas de KPIs | Cuadrícula de 4 tarjetas KPI con modo limpio sin títulos artificiales | [`specs/organisms/PeriodKpisGroup.spec.md`](specs/organisms/PeriodKpisGroup.spec.md) |
 | **`MetricCardsGroup`** | Cuadrículas de Métricas | Cuadrícula de tarjetas de desempeño para múltiples categorías | [`specs/organisms/MetricCardsGroup.spec.md`](specs/organisms/MetricCardsGroup.spec.md) |
 | **`WidgetConfigCard`** | Configuración de Tablero| Tarjeta con barra de herramientas flotante para reordenar, redimensionar y borrar | [`specs/organisms/WidgetConfigCard.spec.md`](specs/organisms/WidgetConfigCard.spec.md) |
+| **`DataTableToolbar`** | Toolbars Operativos | Barra canónica Fila 3 con buscador fijo, filtros adyacentes, chips, sincro y contador | [`specs/organisms/DataTableToolbar.spec.md`](specs/organisms/DataTableToolbar.spec.md) |
 | **`AppHeader`** | Encabezados | Cabecera institucional con isotipo, indicadores en tiempo real y fecha | [`specs/organisms/AppHeader.spec.md`](specs/organisms/AppHeader.spec.md) |
 
 ---
