@@ -65,6 +65,7 @@ Estructuras de alta complejidad que combinan múltiples moléculas, canvas vecto
 | **`WidgetConfigCard`** | Configuración de Tablero| Tarjeta con barra de herramientas flotante para reordenar, redimensionar y borrar | [`specs/organisms/WidgetConfigCard.spec.md`](specs/organisms/WidgetConfigCard.spec.md) |
 | **`DataTableToolbar`** | Toolbars Operativos | Barra canónica Fila 3 con buscador fijo, filtros adyacentes, chips, sincro y contador | [`specs/organisms/DataTableToolbar.spec.md`](specs/organisms/DataTableToolbar.spec.md) |
 | **`AppHeader`** | Encabezados | Cabecera institucional con isotipo, indicadores en tiempo real y fecha | [`specs/organisms/AppHeader.spec.md`](specs/organisms/AppHeader.spec.md) |
+| **`PageHeader`** | Encabezados | Cabecera maestra de 2 Filas × 2 Partes con ubicación, resumen de totales, cápsula de mercado y barra de acciones | [`specs/organisms/PageHeader.spec.md`](specs/organisms/PageHeader.spec.md) |
 
 ---
 
